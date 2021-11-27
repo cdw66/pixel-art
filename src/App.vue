@@ -3,7 +3,13 @@
     <Header @clear="clearGrid" />
   </div>
   <div class="grid">
-    <Grid @color-pixel="colorPixel" :pixels="pixels" />
+    <!-- <Grid @color-pixel="colorPixel" :pixels="pixels" /> -->
+    <Grid
+      @start-color="startColor"
+      @color-pixel="colorPixel"
+      @stop-color="stopColor"
+      :pixels="pixels"
+    />
   </div>
 </template>
 
@@ -22,16 +28,31 @@ export default {
   },
   data() {
     return {
+      mouseDown: false,
       pixels: [],
     };
   },
   methods: {
     colorPixel(id) {
-      this.pixels.forEach((pixel) => {
-        if (pixel.id == id) {
-          pixel.color = "black";
-        }
-      });
+      if (this.mouseDown) {
+        this.pixels.forEach((pixel) => {
+          if (pixel.id == id) {
+            pixel.color = "black";
+          }
+        });
+      }
+    },
+
+    startColor() {
+      this.mouseDown = true;
+      console.log("mouse is down!");
+      console.log(this.mouseDown);
+    },
+
+    stopColor() {
+      this.mouseDown = false;
+      console.log(this.mouseDown);
+      console.log("mouse is up!");
     },
 
     // generateGrid() {

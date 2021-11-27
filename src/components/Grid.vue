@@ -1,6 +1,12 @@
 <template>
   <div :key="pixel.id" v-for="pixel in pixels">
-    <Pixel @color-pixel="$emit('color-pixel', pixel.id)" :pixel="pixel" />
+    <!-- <Pixel @color-pixel="$emit('color-pixel', pixel.id)" :pixel="pixel" /> -->
+    <Pixel
+      @start-color="$emit('start-color')"
+      @color-pixel="$emit('color-pixel', pixel.id)"
+      @stop-color="$emit('stop-color')"
+      :pixel="pixel"
+    />
   </div>
 </template>
 
@@ -15,7 +21,7 @@ export default {
   props: {
     pixels: Array,
   },
-  emits: ["color-pixel"],
+  emits: ["start-color", "stop-color", "color-pixel"],
 };
 </script>
 

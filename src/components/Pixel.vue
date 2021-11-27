@@ -1,5 +1,15 @@
 <template>
-  <div @click="onColor(pixel.id)" :style="{ background: pixel.color }"></div>
+  <!-- <div @click="onColor(pixel.id)" :style="{ background: pixel.color }"></div> -->
+  <!-- <div
+    @mouseover="onColor(pixel.id)"
+    :style="{ background: pixel.color }"
+  ></div> -->
+  <div
+    @mousedown="startColor()"
+    @mouseover="onColor(pixel.id)"
+    @mouseup="stopColor()"
+    :style="{ background: pixel.color }"
+  ></div>
 </template>
 
 <script>
@@ -12,6 +22,14 @@ export default {
   methods: {
     onColor(id) {
       this.$emit("color-pixel", id);
+      // this.$emit("start-color");
+      // this.$emit("stop-color");
+    },
+    startColor() {
+      this.$emit("start-color");
+    },
+    stopColor() {
+      this.$emit("stop-color");
     },
   },
 };
