@@ -2,7 +2,7 @@
   <div class="container">
     <Header @clear="clearGrid" />
   </div>
-  <div class="grid">
+  <div @mouseleave="stopColor" class="grid">
     <!-- <Grid @color-pixel="colorPixel" :pixels="pixels" /> -->
     <Grid
       @start-color="startColor"

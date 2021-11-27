@@ -5,7 +5,8 @@
     :style="{ background: pixel.color }"
   ></div> -->
   <div
-    @mousedown="startColor()"
+    @click="startColor(), onColor(pixel.id), stopColor()"
+    @mousedown="startColor(), onColor(pixel.id)"
     @mouseover="onColor(pixel.id)"
     @mouseup="stopColor()"
     :style="{ background: pixel.color }"
