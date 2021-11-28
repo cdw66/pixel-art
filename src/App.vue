@@ -2,14 +2,19 @@
   <div class="container">
     <Header @clear="clearGrid" />
   </div>
-  <div @mouseleave="stopColor" class="grid">
-    <!-- <Grid @color-pixel="colorPixel" :pixels="pixels" /> -->
-    <Grid
-      @start-color="startColor"
-      @color-pixel="colorPixel"
-      @stop-color="stopColor"
-      :pixels="pixels"
-    />
+  <div class="editor">
+    <div>
+      <ColorPicker @select-color="selectColor" :swatches="swatches" />
+    </div>
+    <div @mouseleave="stopColor" class="grid">
+      <!-- <Grid @color-pixel="colorPixel" :pixels="pixels" /> -->
+      <Grid
+        @start-color="startColor"
+        @color-pixel="colorPixel"
+        @stop-color="stopColor"
+        :pixels="pixels"
+      />
+    </div>
   </div>
 </template>
 
@@ -18,18 +23,21 @@
 import Header from "./components/Header.vue";
 // import Pixel from "./components/Pixel.vue";
 import Grid from "./components/Grid.vue";
+import ColorPicker from "./components/ColorPicker.vue";
 
 export default {
   name: "App",
   components: {
     Header,
     Grid,
-    // Pixel,
+    ColorPicker,
   },
   data() {
     return {
       mouseDown: false,
+      selectedColor: "black",
       pixels: [],
+      swatches: [],
     };
   },
   methods: {
@@ -37,7 +45,7 @@ export default {
       if (this.mouseDown) {
         this.pixels.forEach((pixel) => {
           if (pixel.id == id) {
-            pixel.color = "black";
+            pixel.color = this.selectedColor;
           }
         });
       }
@@ -45,14 +53,19 @@ export default {
 
     startColor() {
       this.mouseDown = true;
-      console.log("mouse is down!");
-      console.log(this.mouseDown);
     },
 
     stopColor() {
       this.mouseDown = false;
-      console.log(this.mouseDown);
-      console.log("mouse is up!");
+    },
+
+    selectColor(id) {
+      this.color = this.swatches.forEach((swatch) => {
+        if (swatch.id == id) {
+          this.selectedColor = swatch.color;
+          console.log(this.selectedColor);
+        }
+      });
     },
 
     // generateGrid() {
@@ -91,6 +104,25 @@ export default {
 
     this.pixels = blank;
 
+    this.swatches = [
+      {
+        id: 1,
+        color: "red",
+      },
+      {
+        id: 2,
+        color: "green",
+      },
+      {
+        id: 3,
+        color: "blue",
+      },
+      {
+        id: 4,
+        color: "black",
+      },
+    ];
+
     // this.pixels = [
     //   {
     //     id: 1,
@@ -126,5 +158,9 @@ export default {
   border-radius: 5px;
   border-style: none;
   font-weight: bold;
+}
+
+.editor {
+  display: flex;
 }
 </style>;
